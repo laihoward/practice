@@ -67,8 +67,7 @@ class Linked_list:
                 move_node = move_node.next
                 index_count += 1
             previous_node.next = move_node.next
- 
-
+        
         elif index==len(self):
             index_count =1
             move_node = self.head
@@ -80,6 +79,15 @@ class Linked_list:
             previous_node.next = None
         else:
             print("index out of range")
+
+    def print_linkedlist(self):
+        current_node = self.head
+        index_count =1
+        chain = []
+        for i in range(len(self)):
+            print("[%d]%s得%s分" % (i+1,str(current_node.name),str(current_node.point)))
+            current_node = current_node.next
+
 
 
     def __len__(self):
@@ -103,6 +111,8 @@ class Linked_list:
 def main():
     l=Linked_list()
     while True:
+        
+        print(l)
         print("這個鏈結串列的長度為："+ str(len(l)))
         print(" 1.加入資料 \n 2.顯示資料 \n 3.刪除最後一個資料 \n 4.插入資料 \n 5.刪除其中一個資料 \n 6.結束" )
         option=input("輸入選項:")
@@ -114,7 +124,7 @@ def main():
         
         elif option == "2":
             print("="*20)
-            print(l)
+            l.print_linkedlist()
             print("="*20)
         
         elif option == "3":
@@ -126,11 +136,13 @@ def main():
             point=input("得分為:")
             l.insert(int(index),point,name)
             os.system('cls' if os.name == 'nt' else 'clear')
+            
         
         elif option == "5":
             index=int(input("要刪除資料的位置:"))
             l.remove(int(index))
             os.system('cls' if os.name == 'nt' else 'clear')
+            
                     
 
         elif option == "6":
