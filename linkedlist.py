@@ -49,6 +49,38 @@ class Linked_list:
                 index_count += 1
             new_player.next = move_node.next
             move_node.next = new_player
+    
+    def remove(self,index):
+        if self.head==None:
+            print("No data")
+        if index == 1 and len(self)==1:
+            self.head=None
+            self.tail=None
+        elif index ==1 and len(self)>1:
+            self.head=self.head.next
+
+        elif 1 < index < len(self):
+            index_count =1
+            move_node = self.head
+            while index_count != index:
+                previous_node = move_node
+                move_node = move_node.next
+                index_count += 1
+            previous_node.next = move_node.next
+ 
+
+        elif index==len(self):
+            index_count =1
+            move_node = self.head
+            while index_count != index:
+                previous_node = move_node
+                move_node = move_node.next
+                index_count += 1
+            self.tail = previous_node
+            previous_node.next = None
+        else:
+            print("index out of range")
+
 
     def __len__(self):
         length = 0
@@ -72,7 +104,7 @@ def main():
     l=Linked_list()
     while True:
         print("這個鏈結串列的長度為："+ str(len(l)))
-        print(" 1.加入資料 \n 2.顯示資料 \n 3.刪除最後一個資料 \n 4.插入資料 \n 5.結束" )
+        print(" 1.加入資料 \n 2.顯示資料 \n 3.刪除最後一個資料 \n 4.插入資料 \n 5.刪除其中一個資料 \n 6.結束" )
         option=input("輸入選項:")
         if option == "1":
             name=input("球員:")
@@ -94,8 +126,14 @@ def main():
             point=input("得分為:")
             l.insert(int(index),point,name)
             os.system('cls' if os.name == 'nt' else 'clear')
-
+        
         elif option == "5":
+            index=int(input("要刪除資料的位置:"))
+            l.remove(int(index))
+            os.system('cls' if os.name == 'nt' else 'clear')
+                    
+
+        elif option == "6":
             print(l)
             return False
     
