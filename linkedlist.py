@@ -82,7 +82,6 @@ class Linked_list:
 
     def print_linkedlist(self):
         current_node = self.head
-        index_count =1
         chain = []
         for i in range(len(self)):
             print("[%d]%s得%s分" % (i+1,str(current_node.name),str(current_node.point)))
