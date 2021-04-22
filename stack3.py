@@ -57,6 +57,7 @@ class stack_1:
             print("The sum of stack is:%d"% sum)
 
 
+
 def main():
     s=stack_1()
     while True:
