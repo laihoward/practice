@@ -1,3 +1,4 @@
+# You have implemented your Queue Data Structure. You can Use that one.
 queue = [1,2,3,4,5,6]
 
 def scramble(data):
