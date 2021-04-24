@@ -8,6 +8,8 @@ class Node:
 
 class StackByLinkedlist():
     def __init__(self):
+        # Actually, you only need to use linkedlist.py which you already created
+        # to implement Stack
         self.head=Node("head")
         self.size = 0
 
@@ -15,6 +17,8 @@ class StackByLinkedlist():
         return self.size == 0
     
     def push(self,data):
+        # By using LinkedList defined in linkedlist.py,
+        # you will not need to work with Node and manipulate its states in this script.
         new_node = Node(data)
         new_node.next = self.head.next
         self.head.next=new_node

@@ -22,6 +22,7 @@ class stack_1:
 
     def pop(self):
         top = len(self.stack)
+        # This part of code is already defined in isEmpty()
         if  len(self.stack)==0:
             print("stack is empty")
         else:
@@ -30,6 +31,7 @@ class stack_1:
 
     def peek(self):
         top = len(self.stack)
+        # This part of code is already defined in isEmpty()
         if len(self.stack)==0:
             print("stack is empty")
         else:
@@ -47,6 +49,7 @@ class stack_1:
         j=len(self.stack)  
         sum = 0
         stack_number =0
+        # This part of code is already defined in isEmpty()
         if len(self.stack)==0:
             print("stack is empty")
         else:
