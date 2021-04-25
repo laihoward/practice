@@ -8,27 +8,37 @@ class Linked_list:
     def __init__(self):
         self.head=None
         self.tail=None
+        self.size=0
+
+    def isempty(self):
+        return self.size == 0
     
     def append(self,data):
-        new_player = Linked_Node(data)
+        new_node = Linked_Node(data)
         if self.head==None:
-            self.head=new_player
-            self.tail=new_player
+            self.head=new_node
+            self.tail=new_node
         else:
-            self.tail.next=new_player
+            self.tail.next=new_node
             self.tail= self.tail.next
+        self.size +=1
+        
     
     def delete_last(self):
         if self.head==None:
             print("No data")
         elif self.head.next==None:
             self.head=None
+            self.size -=1
         else:
             move_node = self.head
+            print("data is:%s" % str(move_node.data))
             while move_node.next != None:
                 self.tail=move_node
                 move_node=move_node.next
             self.tail.next = None
+            self.size -=1
+
 
     def insert(self,index,data):
         if self.head==None:
@@ -36,18 +46,18 @@ class Linked_list:
         if not 1 <= index <= len(self):
             print("index out of list")
         elif index == 1:
-            new_player = Linked_Node(data)
-            new_player.next = self.head
-            self.head = new_player
+            new_node = Linked_Node(data)
+            new_node.next = self.head
+            self.head = new_node
         elif  1 <= index <= len(self):
-            new_player = Linked_Node(data)
+            new_node = Linked_Node(data)
             index_count =1
             move_node = self.head
             while index_count+1 != index:
                 move_node = move_node.next
                 index_count += 1
-            new_player.next = move_node.next
-            move_node.next = new_player
+            new_node.next = move_node.next
+            move_node.next = new_node
     
     def remove(self,index):
         if self.head==None:
