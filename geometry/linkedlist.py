@@ -20,7 +20,7 @@ class Linked_list:
             self.tail=new_node
         else:
             self.tail.next=new_node
-            self.tail= self.tail.next
+            self.tail= new_node
         self.size +=1
         
     
@@ -32,7 +32,6 @@ class Linked_list:
             self.size -=1
         else:
             move_node = self.head
-            print("data is:%s" % str(move_node.data))
             while move_node.next != None:
                 self.tail=move_node
                 move_node=move_node.next

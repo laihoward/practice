@@ -1,45 +1,35 @@
 import os
-import linkedlist as l 
-class Node:
-    def __init__(self,data=None,next=None):
-        self.data = data
-        self.next = next
-
+import geometry.linkedlist as l
 
 class StackByLinkedlist():
     def __init__(self):
-        self.head=Node("head")
+        self.head=None
+        self.tail=None
         self.size = 0
 
-    def isempty(self):
-        return self.size == 0
-    
     def push(self,data):
-        new_node = Node(data)
-        new_node.next = self.head.next
-        self.head.next=new_node
-        self.size +=1
+        l.Linked_list.append(self,data)
+        # new_node = l.Linked_Node(data)
+        # new_node.next = self.head.next
+        # self.head.next=new_node
+        # self.size +=1
 
     def pop(self):
-        if  self.size == 0:
-            print("stack is empty")
-        else:
-            pop_data = self.head.next
-            print("pop data is:%s" % str(pop_data.data))
-            self.size -= 1
-            self.head=self.head.next    
+        current_node = self.tail
+        print("peek data is:%s" % str(current_node.data))
+        l.Linked_list.delete_last(self)
     
     def peek(self):
-        if self.size == 0:
+        if l.Linked_list.isempty(self):
             print("stack is empty")
         else:
-            current_node = self.head
-            print("peek data is:%s" % str(current_node.next.data))
+            current_node = self.tail
+            print("peek data is:%s" % str(current_node.data))
 
     def print_Stack(self):
         current_node = self.head
         for i in range(self.size):
-            print("[%d]%s" % (i+1,str(current_node.next.data)))
+            print("[%d]%s" % (i+1,str(current_node.data)))
             current_node = current_node.next
 
     def stack_sum(self):
@@ -48,11 +38,11 @@ class StackByLinkedlist():
         current_node = self.head
         j=self.size
         print(j) 
-        if self.size ==0:
+        if l.Linked_list.isempty(self):
             print("stack is empty")
         else:
             while j > 0:
-                stack_number = current_node.next.data
+                stack_number = current_node.data
                 j  -= 1
                 current_node = current_node.next
                 sum = sum + stack_number         
