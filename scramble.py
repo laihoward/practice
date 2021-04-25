@@ -1,4 +1,4 @@
-queue = [1,2,3,4,5,6]
+queue = [1,2,3]
 
 def scramble(data):
     size = len(data)
@@ -9,7 +9,6 @@ def scramble(data):
     while i < size:
         if i % 2 ==0:
             for a in range(count):
-                print(i)
                 new.append(data[i])
                 print("a%d"%data[i])
                 i+=1
