@@ -1,16 +1,16 @@
-
 class stack_1:
     def __init__(self,stack_val=None,data=None):
         self.stack=[]
         self.stack_val =stack_val
         self.data =data
+        self.size = 0
     
     def __len__(self):
-        return len(self.stack)
+        return self.size
     
     
     def isEmpty(self):
-        if len(self.stack) ==0:
+        if self.size ==0:
             return True
         else:
             return False
@@ -18,36 +18,37 @@ class stack_1:
     def push(self,data):
         self.stack.append(data)
         print(self.stack)
-        print(len(self.stack))
+        print(self.size)
+        self.size +=1
 
     def pop(self):
-        top = len(self.stack)
-        if  len(self.stack)==0:
+        if  self.size==0:
             print("stack is empty")
         else:
-            print("pop data is:%s" % str(self.stack[top-1]))
-            top -= 1
+            print("pop data is:%s" % str(self.stack[self.size-1]))
+            del self.stack[self.size-1]
+            self.size -=1
 
     def peek(self):
-        top = len(self.stack)
-        if len(self.stack)==0:
+        
+        if self.size==0:
             print("stack is empty")
         else:
-            print("peek data is:%s" % str(self.stack[top-1]))
+            print("peek data is:%s" % str(self.stack[self.size-1]))
     
     def print_stack(self):
         i=1
-        j=len(self.stack)
+        j=self.size
         while j >0:
             print("[%d]%s" % (i,str(self.stack[j-1])))
             j -= 1        
             i+=1
 
     def stack_sum(self):
-        j=len(self.stack)  
+        j=self.size
         sum = 0
         stack_number =0
-        if len(self.stack)==0:
+        if self.size==0:
             print("stack is empty")
         else:
             while j >0:
