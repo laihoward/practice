@@ -25,9 +25,11 @@ class stack_1:
         if  self.size==0:
             print("stack is empty")
         else:
-            print("pop data is:%s" % str(self.stack[self.size-1]))
+            # print("pop data is:%s" % str(self.stack[self.size-1]))
+            deldata = self.stack[self.size-1]
             del self.stack[self.size-1]
             self.size -=1
+            return deldata
 
     def peek(self):
         
