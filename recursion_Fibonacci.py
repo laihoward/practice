@@ -29,7 +29,7 @@ import geometry.stack3 as s
 
 
 
-def fib(n):
+def fib_for(n):
     stack=[]
     num = 0
     i =0 
@@ -44,7 +44,21 @@ def fib(n):
             stack.append(num) 
     print(stack)
     print(stack[i])
-fib(8)
+fib_for(8)
+
+
+def fib_re(n): 
+    if n ==0:
+        return 0
+    if n ==1 or n ==2:
+        return 1
+    if n>2:
+        return fib_re(n-1)+fib_re(n-2)
+    
+print(fib_re(7))
+
+
+
 # Example:
 # fib(0) == 0
 # fib(1) == 1
