@@ -77,38 +77,38 @@ def test_height():
         tree.insert(i, i)
         tree.height() == i
 
-# import random
-# def test_find():
-#     l = list()
-#     for i in range(97, 107):
-#         l.append(i)
+import random
+def test_find():
+    l = list()
+    for i in range(97, 107):
+        l.append(i)
     
-#     tree = Tree()
-#     random.shuffle(l)
-#     while len(l) > 0:
-#         key = l.pop()
-#         value = chr(key)
-#         tree.insert(key, value)
+    tree = Tree()
+    random.shuffle(l)
+    while len(l) > 0:
+        key = l.pop()
+        value = chr(key)
+        tree.insert(key, value)
     
-#     for i in range(97, 107):
-#         key = i
-#         value = chr(key)
-#         croot = tree.find(key)
-#         assert croot.value == value
+    for i in range(97, 107):
+        key = i
+        value = chr(key)
+        croot = tree.find(key)
+        assert croot.value == value
 
-# def test_find2():
-#     tree = Tree()
-#     l = [38,13,51,10,25,40,84,12,37,66,89,95]
-#     length = len(l)
-#     while len(l) > 0:
-#         key = l.pop(0)
-#         value = chr(key)
-#         tree.insert(key, value)
+def test_find2():
+    tree = Tree()
+    l = [38,13,51,10,25,40,84,12,37,66,89,95]
+    length = len(l)
+    while len(l) > 0:
+        key = l.pop(0)
+        value = chr(key)
+        tree.insert(key, value)
     
-#     assert tree.find(100) == None
-#     assert tree.find(50) == None
-#     assert tree.find(15) == None
-#     assert tree.find(39) == None
+    assert tree.find(100) == None
+    assert tree.find(50) == None
+    assert tree.find(15) == None
+    assert tree.find(39) == None
 
 # def test_find_parent_croot():
 #     tree = Tree()

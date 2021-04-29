@@ -34,18 +34,17 @@ class Tree(object):
     def find(self, key):
         if self.root is None:
             print("No data")
-        else:
-            self.root = self.recur_find(self.root, key)  
-        return self.root
+        else:    
+            return self.recur_find(self.root, key) 
     # TODO: return a tree node
 
     def recur_find(self, croot, key):
         if croot.key == key:
             return croot
         elif key < croot.key and croot.left != None:
-            self.recur_find(croot.left,key)
+            return self.recur_find(croot.left,key)
         elif key > croot.key and croot.right != None:
-            self.find(croot.right,key)
+            return self.recur_find(croot.right,key)
         # TODO: recursive helper function for find operation
     
 
@@ -63,36 +62,36 @@ class Tree(object):
 
 
     
-    def remove(self, key):
-        if  self.root is None:
-            return self.root
-        if self.root.left and self.root.right != None:
-            return two_child_remove(self, self.root.key, self.root)
-        else:
-            return zero_one_child_remove(self, self.root, self.root)
-        # TODO: Implement the remove function
-        # if ...: two_child_remove(self, parent, croot)
-        # else: zero_one_child_remove(self, parent, croot)
+    # def remove(self, key):
+    #     if  self.root is None:
+    #         return self.root
+    #     if self.root.left and self.root.right != None:
+    #         return two_child_remove(self, self.root.key, self.root)
+    #     else:
+    #         return zero_one_child_remove(self, self.root, self.root)
+    #     # TODO: Implement the remove function
+    #     # if ...: two_child_remove(self, parent, croot)
+    #     # else: zero_one_child_remove(self, parent, croot)
     
-    def two_child_remove(self, parent, croot):
-        # We can devide the remove cases in two case.
-        # In this case, it's more complicated, we need to find
-        # the in order predecessor before remove operation
-        iop_parent, iop = self.right_most_child(croot, croot.left)
-        croot.key = iop.key
-        croot.value = iop.value
-        self.zero_one_child_remove(iop_parent, iop)
+    # def two_child_remove(self, parent, croot):
+    #     # We can devide the remove cases in two case.
+    #     # In this case, it's more complicated, we need to find
+    #     # the in order predecessor before remove operation
+    #     iop_parent, iop = self.right_most_child(croot, croot.left)
+    #     croot.key = iop.key
+    #     croot.value = iop.value
+    #     self.zero_one_child_remove(iop_parent, iop)
     
-    def zero_one_child_remove(self, parent, croot):
-        # Easier case for remove operation,
-        # we can pass parent node and croot(current node, which is the node we want to delete)
-        # if parent.left and the current node is the same node, 
-        # we can connect parent of current node to children of current node. (similar to linkedlist)
-        if parent.left is not None and parent.left.key == croot.key:
+    # def zero_one_child_remove(self, parent, croot):
+    #     # Easier case for remove operation,
+    #     # we can pass parent node and croot(current node, which is the node we want to delete)
+    #     # if parent.left and the current node is the same node, 
+    #     # we can connect parent of current node to children of current node. (similar to linkedlist)
+    #     if parent.left is not None and parent.left.key == croot.key:
 
 
-        elif parent.right is not None and parent.right.key == croot.key:
-            # TODO
+    #     elif parent.right is not None and parent.right.key == croot.key:
+    #         # TODO
             
     
     # def right_most_child(self, parent, croot):
