@@ -49,19 +49,23 @@ class Tree(object):
     
 
 
-    # def find_parent_croot(self, key):
-    #     parent = self.root
-    #     croot = self.root
-    #     return self.recur_find_parent_croot(parent, croot, key)
-    #     # TODO: this function returns both the tree node with the given key
-    #     # and also its parent node. This would be helpful for remove the node
+    def find_parent_croot(self, key):
+        parent = self.root
+        croot = self.root
+        return self.recur_find_parent_croot(parent, croot, key)
+        # TODO: this function returns both the tree node with the given key
+        # and also its parent node. This would be helpful for remove the node
 
-    # def recur_find_parent_croot(self, parent, croot, key):
+    def recur_find_parent_croot(self, parent, croot, key):
+        if croot.key == key:
+            return parent,croot
+        elif key < croot.key and croot.left != None:
+            return  self.recur_find_parent_croot(croot,croot.left,key)
+        elif key > croot.key and croot.right != None:
+            return self.recur_find_parent_croot(croot,croot.right,key)
+        # TODO: helper function for finding nodes.
 
-    #     # TODO: helper function for finding nodes.
 
-
-    
     # def remove(self, key):
     #     if  self.root is None:
     #         return self.root
@@ -94,17 +98,21 @@ class Tree(object):
     #         # TODO
             
     
-    # def right_most_child(self, parent, croot):
-    #     # Find the right most child with respect to croot node.
-    #     # Example:
-    #     #         38
-    #     #      13
-    #     #  10    25
-    #     #    12     37
-    #     #
-    #     # when parent = 38, croot = 13, 
-    #     # then you should return the most right child which is 37 and its paretn 25
-    #     # TODO: return parent, croot
+    def right_most_child(self, parent, croot):
+        if croot.right != None:
+            return  self.right_most_child(croot,croot.right)
+        else:
+            return parent,croot
+        # Find the right most child with respect to croot node.
+        # Example:
+        #         38
+        #      13
+        #  10    25
+        #    12     37
+        #
+        # when parent = 38, croot = 13, 
+        # then you should return the most right child which is 37 and its paretn 25
+        # TODO: return parent, croot
         
     def pre_order(self):
         res = list()
@@ -136,9 +144,23 @@ class Tree(object):
         # TODO: Store the in-order traversal to list
 
     
-    # def level_order(self):
-    #     # TODO: Store the level-order traversal to list
-    #     # Hint: you need to use queue.
+    def level_order(self):
+        queue = [self.root]
+        res = list()
+        while len( queue) > 0:       
+            cur = queue[0]
+            res.append(cur.key)
+            queue = queue[1:]
+            if cur.left is not None:
+                queue.append(cur.left)
+            if cur.right is not None:
+                queue.append(cur.right)
+        return res
+ 
+        # TODO: Store the level-order traversal to list
+        # Hint: you need to use queue.
+    
+
 
     
     def height(self):
@@ -189,4 +211,4 @@ class Tree(object):
     #     # 136
     #     # 129
     #     # 128
-        
+

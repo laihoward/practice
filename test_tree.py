@@ -17,22 +17,22 @@ def test_insert():
         curr = curr.right
         k += 1
 
-# def test_insert2():
-#     tree = Tree()
-#     s = 100
-#     for i in range(0, s):
-#         tree.insert(i, i)
+def test_insert2():
+    tree = Tree()
+    s = 100
+    for i in range(0, s):
+        tree.insert(i, i)
     
-#     # try to insert again
-#     for i in range(0, 10):
-#         tree.insert(i, i+1)
-#     k = 0
-#     curr = tree.root
-#     while k < s:
-#         assert curr.key == k
-#         assert curr.left == None
-#         curr = curr.right
-#         k += 1
+    # try to insert again
+    for i in range(0, 10):
+        tree.insert(i, i+1)
+    k = 0
+    curr = tree.root
+    while k < s:
+        assert curr.key == k
+        assert curr.left == None
+        curr = curr.right
+        k += 1
 
 def test_in_order():
     tree = Tree()
@@ -54,20 +54,20 @@ def test_in_order2():
     res = tree.pre_order()
     assert res == elem
 
-# def test_in_order_pre_order_level_order():
-#     tree = Tree()
-#     l = [38,13,51,10,25,40,84,12,37,66,89,95]
-#     length = len(l)
-#     while len(l) > 0:
-#         key = l.pop(0)
-#         value = chr(key)
-#         tree.insert(key, value)
-#     in_order = tree.in_order()
-#     pre_order = tree.pre_order()
-#     level_order = tree.level_order()
-#     assert in_order ==  [10,12,13,25,37,38,40,51,66,84,89,95]
-#     assert pre_order == [38,13,10,12,25,37,51,40,84,66,89,95]
-#     assert level_order == [38,13,51,10,25,40,84,12,37,66,89,95]
+def test_in_order_pre_order_level_order():
+    tree = Tree()
+    l = [38,13,51,10,25,40,84,12,37,66,89,95]
+    length = len(l)
+    while len(l) > 0:
+        key = l.pop(0)
+        value = chr(key)
+        tree.insert(key, value)
+    in_order = tree.in_order()
+    pre_order = tree.pre_order()
+    level_order = tree.level_order()
+    assert in_order ==  [10,12,13,25,37,38,40,51,66,84,89,95]
+    assert pre_order == [38,13,10,12,25,37,51,40,84,66,89,95]
+    assert level_order == [38,13,51,10,25,40,84,12,37,66,89,95]
 
 def test_height():
     tree = Tree()
@@ -110,38 +110,38 @@ def test_find2():
     assert tree.find(15) == None
     assert tree.find(39) == None
 
-# def test_find_parent_croot():
-#     tree = Tree()
-#     l = [38,13,51,10,25,40,84,12,37,66,89,95]
-#     length = len(l)
-#     while len(l) > 0:
-#         key = l.pop(0)
-#         value = chr(key)
-#         tree.insert(key, value)
-#     p1, c1 = tree.find_parent_croot(13)
-#     p2, c2 = tree.find_parent_croot(51)
-#     assert p1.key == p2.key
-#     assert c1.key == 13
-#     assert c2.key == 51
+def test_find_parent_croot():
+    tree = Tree()
+    l = [38,13,51,10,25,40,84,12,37,66,89,95]
+    length = len(l)
+    while len(l) > 0:
+        key = l.pop(0)
+        value = chr(key)
+        tree.insert(key, value)
+    p1, c1 = tree.find_parent_croot(13)
+    p2, c2 = tree.find_parent_croot(51)
+    assert p1.key == p2.key
+    assert c1.key == 13
+    assert c2.key == 51
     
-#     p1, c1 = tree.find_parent_croot(38)
-#     assert p1.key == c1.key
+    p1, c1 = tree.find_parent_croot(38)
+    assert p1.key == c1.key
     
-#     p1, c1 = tree.find_parent_croot(66)
-#     p2, c2 = tree.find_parent_croot(89)
-#     assert p1.key == p2.key
+    p1, c1 = tree.find_parent_croot(66)
+    p2, c2 = tree.find_parent_croot(89)
+    assert p1.key == p2.key
     
-# def test_right_most_child():
-#     tree = Tree()
-#     l = [38,13,51,10,25,40,84,12,37,66,89,95]
-#     length = len(l)
-#     while len(l) > 0:
-#         key = l.pop(0)
-#         value = chr(key)
-#         tree.insert(key, value)
-#     parent, croot = tree.right_most_child(tree.root, tree.root.left)
-#     assert parent.key == 25
-#     assert croot.key == 37
+def test_right_most_child():
+    tree = Tree()
+    l = [38,13,51,10,25,40,84,12,37,66,89,95]
+    length = len(l)
+    while len(l) > 0:
+        key = l.pop(0)
+        value = chr(key)
+        tree.insert(key, value)
+    parent, croot = tree.right_most_child(tree.root, tree.root.left)
+    assert parent.key == 25
+    assert croot.key == 37
 
 # def test_remove():
 #     tree = Tree()
