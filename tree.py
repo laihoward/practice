@@ -69,10 +69,11 @@ class Tree(object):
     # def remove(self, key):
     #     if  self.root is None:
     #         return self.root
-    #     if self.root.left and self.root.right != None:
-    #         return two_child_remove(self, self.root.key, self.root)
+    #     parent , croot = self.find_parent_croot(key)
+    #     if croot.left and croot.right != None:
+    #         return self.two_child_remove(parent, croot)
     #     else:
-    #         return zero_one_child_remove(self, self.root, self.root)
+    #         return self.zero_one_child_remove(parent, croot)
     #     # TODO: Implement the remove function
     #     # if ...: two_child_remove(self, parent, croot)
     #     # else: zero_one_child_remove(self, parent, croot)
@@ -84,17 +85,27 @@ class Tree(object):
     #     iop_parent, iop = self.right_most_child(croot, croot.left)
     #     croot.key = iop.key
     #     croot.value = iop.value
-    #     self.zero_one_child_remove(iop_parent, iop)
+    #     return self.zero_one_child_remove(iop_parent, iop)
     
     # def zero_one_child_remove(self, parent, croot):
     #     # Easier case for remove operation,
     #     # we can pass parent node and croot(current node, which is the node we want to delete)
     #     # if parent.left and the current node is the same node, 
-    #     # we can connect parent of current node to children of current node. (similar to linkedlist)
+    #     # we can connect parent of current node to children of current node. (similar to linkedlist) 
     #     if parent.left is not None and parent.left.key == croot.key:
-
-
+    #         if croot.left  is not None:
+    #             parent.left = croot.left
+    #         elif croot.right  is not None:
+    #             parent.right = croot.right
+    #         else:
+    #             parent.left = croot.left
     #     elif parent.right is not None and parent.right.key == croot.key:
+    #         if croot.left  is not None:
+    #             parent.left = croot.left
+    #         elif croot.right  is not None:
+    #             parent.right = croot.right
+    #         else:
+    #             parent.left = croot.left
     #         # TODO
             
     
@@ -179,36 +190,50 @@ class Tree(object):
 
 
         
-    # def mirror(self):
-    #     if self.root is None: return
-    #     self.recur_mirror(self.root)
+    def mirror(self):
+        if self.root is None: 
+            return
+        self.recur_mirror(self.root)
         
-    # def recur_mirror(self, croot):
-    #     # Before mirror
-    #     #       1
-    #     #    2     3
-    #     #  6  7   8  9
+    def recur_mirror(self, croot):
+        if croot != None:
+            left_node = croot.left 
+            croot.left = croot.right
+            croot.right = left_node
+            self.recur_mirror(croot.left)
+            self.recur_mirror(croot.right)
+            return croot
+        # Before mirror
+        #       1
+        #    2     3
+        #  6  7   8  9
         
-    #     # After mirror
-    #     #       1
-    #     #    3     2
-    #     #  7  6   9  8
+        # After mirror
+        #       1
+        #    3     2
+        #  7  6   9  8
         
     
-    # def print_paths(self):
-    #     if self.root is None: return
-    #     s = ''
-    #     self.recur_print_paths(self.root, s)
+    def print_paths(self):
+        if self.root is None: return
+        s = []
+        self.recur_print_paths(self.root, s)
         
-    # def recur_print_paths(self, croot, s):
-    #     #     tree
-    #     #       1
-    #     #    3     2
-    #     #  7  6   9  8
-        
-    #     # all paths: 
-    #     # 137
-    #     # 136
-    #     # 129
-    #     # 128
+    def recur_print_paths(self, croot, s):
+        if  croot.left == None and croot.right == None:
+            return s.append(croot.key)
+        if croot.left != None:
+            s.append(self.recur_print_paths(croot.left,s))
+        if croot.right != None:
+            s.append(self.recur_print_paths(croot.right,s))
+
+        #     tree
+        #       1
+        #    3     2
+        #  7  6   9  8
+        # all paths: 
+        # 137
+        # 136
+        # 129
+        # 128
 
