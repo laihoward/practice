@@ -174,10 +174,10 @@ def test_remove():
     tree.remove(10)
     print(tree.in_order())
     print(tree.level_order())
-    tree.remove(15)
-    print(tree.in_order())
-    p, c = tree.find_parent_croot(25)
-    assert p.key == 37
+    # tree.remove(15)
+    # print(tree.in_order())
+    # p, c = tree.find_parent_croot(25)
+    # assert p.key == 37
 
 # def test_remove():
 #     tree = Tree()

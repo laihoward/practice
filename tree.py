@@ -63,7 +63,9 @@ class Tree(object):
             return  self.recur_find_parent_croot(croot,croot.left,key)
         elif key > croot.key and croot.right != None:
             return self.recur_find_parent_croot(croot,croot.right,key)
-        # TODO: helper function for finding nodes.
+        # elif croot.left == None and croot.right == None:
+        #     return 
+                # TODO: helper function for finding nodes.
 
 
     def remove(self, key):
