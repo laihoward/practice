@@ -57,11 +57,13 @@ class Tree(object):
         # and also its parent node. This would be helpful for remove the node
 
     def recur_find_parent_croot(self, parent, croot, key):
+        if croot is None:
+            return None, None
         if croot.key == key:
             return parent,croot
-        elif key < croot.key and croot.left != None:
+        elif key < croot.key :
             return  self.recur_find_parent_croot(croot,croot.left,key)
-        elif key > croot.key and croot.right != None:
+        else: 
             return self.recur_find_parent_croot(croot,croot.right,key)
         # elif croot.left == None and croot.right == None:
         #     return 
@@ -70,12 +72,14 @@ class Tree(object):
 
     def remove(self, key):
         if  self.root is None:
-            return self.root
+            return 
         parent,croot = self.find_parent_croot(key)
-        if croot.left != None and croot.right != None:
-            return self.two_child_remove(parent, croot)
+        if  croot is None:
+            return 
+        if croot.left is not None and croot.right is not None:
+            self.two_child_remove(parent, croot)
         else:
-            return self.zero_one_child_remove(parent, croot)
+            self.zero_one_child_remove(parent, croot)
         # TODO: Implement the remove function
         # if ...: two_child_remove(self, parent, croot)
         # else: zero_one_child_remove(self, parent, croot)
@@ -87,13 +91,14 @@ class Tree(object):
         iop_parent, iop = self.right_most_child(croot, croot.left)
         croot.key = iop.key
         croot.value = iop.value
-        return self.zero_one_child_remove(iop_parent, iop)
+        self.zero_one_child_remove(iop_parent, iop)
     
     def zero_one_child_remove(self, parent, croot):
         # Easier case for remove operation,
         # we can pass parent node and croot(current node, which is the node we want to delete)
         # if parent.left and the current node is the same node, 
         # we can connect parent of current node to children of current node. (similar to linkedlist) 
+        
         if parent.left is not None and parent.left.key == croot.key:
             if croot.left  is not None:
                 parent.left = croot.left
@@ -109,8 +114,7 @@ class Tree(object):
                 parent.right = croot.right
             else :
                 parent.right = None
-            
-            
+
     
     def right_most_child(self, parent, croot):
         if croot.right != None:
@@ -217,20 +221,24 @@ class Tree(object):
         #  7  6   9  8
         
     
-    # def print_paths(self):
-    #     if self.root is None: return
-    #     s = []
-    #     self.recur_print_paths(self.root, s)
+    def print_paths(self):
+        if self.root is None: 
+            return
+        s = ''
+        l = list()
+        self.recur_print_paths(self.root, s,l)
+        return l
         
-    # def recur_print_paths(self, croot, s):
-    #     if  croot.left == None and croot.right == None:
-    #         return s.append(croot.key)
-    #     if croot.left != None:
-    #         s.append(self.recur_print_paths(croot.left,s))
-    #     if croot.right != None:
-    #         s.append(self.recur_print_paths(croot.right,s))
+    def recur_print_paths(self,croot, s,l):
+        s=f'{s} {croot.key}'
+        if  croot.left == None and croot.right == None:
+            l.append(s)
+        if  croot.left != None:
+            self.recur_print_paths(croot.left,s,l)
+        if  croot.right != None:  
+            self.recur_print_paths(croot.right,s,l)
 
-    #     #     tree
+    # #     #     tree
         #       1
         #    3     2
         #  7  6   9  8
