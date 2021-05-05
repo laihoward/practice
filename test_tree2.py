@@ -149,29 +149,29 @@ def test_remove():
     assert tree.find(25).parent.key == 12
 
 
-# def test_remove2():
-#     tree = Tree()
-#     l = [38,13,51,10,25,40,84,12,37,66,89,95]
-#     length = len(l)
-#     while len(l) > 0:
-#             key = l.pop(0)
-#             value = chr(key)
-#             tree.insert(key, value)
-#     print(tree.in_order())
-#     print(tree.level_order())        
-#     tree.remove(100)
-#     print(tree.in_order())
-#     print(tree.level_order())
-#     tree.remove(50)
-#     print(tree.in_order())
-#     print(tree.level_order())
-#     tree.remove(14)
-#     print(tree.in_order())
-#     print(tree.level_order())
-#     tree.remove(39)
-#     print(tree.in_order())
-#     print(tree.level_order())
-#     assert len(tree.in_order()) == length
+def test_remove2():
+    tree = Tree()
+    l = [38,13,51,10,25,40,84,12,37,66,89,95]
+    length = len(l)
+    while len(l) > 0:
+            key = l.pop(0)
+            value = chr(key)
+            tree.insert(key, value)
+    print(tree.in_order())
+    print(tree.level_order())        
+    tree.remove(100)
+    print(tree.in_order())
+    print(tree.level_order())
+    tree.remove(50)
+    print(tree.in_order())
+    print(tree.level_order())
+    tree.remove(14)
+    print(tree.in_order())
+    print(tree.level_order())
+    tree.remove(39)
+    print(tree.in_order())
+    print(tree.level_order())
+    assert len(tree.in_order()) == length
 
 
 def test_mirror():

@@ -66,7 +66,22 @@ class Tree(object):
         # Please remember to update the parent after remove.
         if  self.root is None:
             return 
-        croot = self.find(key)
+        # croot = self.find(key)
+        croot = self.root
+        while key != croot.key:
+            if key > croot.key:
+                if croot.right is not None:
+                    croot = croot.right
+                else:
+                    croot = None
+                    break
+            elif key < croot.key:
+                if croot.left is not None:
+                    croot = croot.left
+                else:
+                    croot = None
+                    break
+            
         if  croot is None:
             return 
         if croot.left is not None and croot.right is not None:
