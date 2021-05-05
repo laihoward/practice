@@ -61,15 +61,61 @@ class Tree(object):
         #      13    51
         # find(50), should return 51
 
-    # def remove(self, key):
-    #     # TODO: Now we store parent pointer, 
-    #     # Please remember to update the parent after remove.
+    def remove(self, key):
+        # TODO: Now we store parent pointer, 
+        # Please remember to update the parent after remove.
+        if  self.root is None:
+            return 
+        croot = self.find(key)
+        if  croot is None:
+            return 
+        if croot.left is not None and croot.right is not None:
+            self.two_child_remove(croot)
+        else:
+            self.zero_one_child_remove(croot)
     
-    # def two_child_remove(self, croot):
+    def two_child_remove(self, croot):
+        iop = self.right_most_child(croot.left)
+        croot.key = iop.key
+        croot.value = iop.value
+        self.zero_one_child_remove(iop)
 
-    # def zero_one_child_remove(self, croot):
 
-    # def right_most_child(self, croot):
+    def zero_one_child_remove(self, croot):
+        parent = croot.parent
+        if parent.left is not None and parent.left.key == croot.key:
+            if croot.left  is not None:
+                parent.left = croot.left
+                croot = croot.left
+                croot.parent = parent
+            elif croot.right  is not None:
+                parent.left = croot.right
+                croot = croot.right
+                croot.parent = parent
+            else :
+                parent.left =None
+            
+            
+        elif parent.right is not None and parent.right.key == croot.key:
+            if croot.left  is not None:
+                parent.right = croot.left
+                croot = croot.left
+                croot.parent = parent
+            elif croot.right  is not None:
+                parent.right = croot.right
+                croot = croot.right
+                croot.parent = parent
+            else :
+                parent.right = None
+            
+            
+
+
+    def right_most_child(self, croot):
+        if croot.right != None:
+            return  self.right_most_child(croot.right)
+        else:
+            return croot
 
 
     def pre_order(self):
@@ -98,17 +144,58 @@ class Tree(object):
             self.recur_in_order(croot.right, res)
         return res
 
-    # def level_order(self):
+    def level_order(self):
+        queue = [self.root]
+        res = list()
+        while len( queue) > 0:       
+            cur = queue[0]
+            res.append(cur.key)
+            queue = queue[1:]
+            if cur.left is not None:
+                queue.append(cur.left)
+            if cur.right is not None:
+                queue.append(cur.right)
+        return res
     
-    # def height(self):
+    def height(self):
+        if self.root != None:
+            return self.recur_height(self.root)
+        else:
+            return -1
 
-    # def recur_height(self, croot):
-        
-    # def mirror(self):
-        
-    # def recur_mirror(self, croot):
+    def recur_height(self, croot):
+        if croot ==None:
+            return 0
+        else:
+            return max(self.recur_height(croot.left),self.recur_height(croot.right))
+    def mirror(self):
+        if self.root is None: 
+            return
+        self.recur_mirror(self.root)
+
+    def recur_mirror(self, croot):
+        if croot != None:
+            left_node = croot.left 
+            croot.left = croot.right
+            croot.right = left_node
+            self.recur_mirror(croot.left)
+            self.recur_mirror(croot.right)
+            return croot
     
-    # def print_paths(self):
+    def print_paths(self):
+        if self.root is None: 
+            return
+        s = ''
+        l = list()
+        self.recur_print_paths(self.root, s,l)
+        return l
         
-    # def recur_print_paths(self, croot, s, l):
+    def recur_print_paths(self,croot, s,l):
+        s=f'{s} {croot.key}'
+        if  croot.left == None and croot.right == None:
+            l.append(s)
+        if  croot.left != None:
+            self.recur_print_paths(croot.left,s,l)
+        if  croot.right != None:  
+            self.recur_print_paths(croot.right,s,l)
 # %%
