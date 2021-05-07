@@ -7,7 +7,7 @@ class TreeNode(object):
         self.parent = parent
         self.left = None
         self.right = None
-        self.height = 0
+  
     
     # def __del__(self):
     #     print(f'TreeNode with data {self.key} is destroyed')
@@ -66,18 +66,11 @@ class AVL(object):
     def rebalance(self, croot):
         # TODO: take care of 4 cases of rotation operations
 
-
-
     # def is_balanced(self, croot):
     # TODO: abs(h_left-h_right) <= 1 
 
     # def recur_is_balanced(self, croot):
     
-    def node_height(self,croot):
-        if croot is None:
-            return -1
-        else:
-            return croot.height
 
     def find(self, key):
         return self.recur_find(self.root, key)
