@@ -11,7 +11,12 @@ def test_insert():
     while len(l) > 0:
         key = l.pop(0)
         value = chr(key)
+        print(tree.in_order())
         tree.insert(key, value)
+        print(tree.in_order())
+        # print(tree.is_balanced())
+    print(tree.in_order())
+    print(tree.level_order())
     assert tree.root.key == 10
     assert tree.in_order() == [5,10,15]
     assert tree.level_order() == [10,5,15]

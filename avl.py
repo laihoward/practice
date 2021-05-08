@@ -6,9 +6,7 @@ class TreeNode(object):
         self.value = value
         self.parent = parent
         self.left = None
-        self.right = None
-  
-    
+        self.right = None 
     # def __del__(self):
     #     print(f'TreeNode with data {self.key} is destroyed')
 
@@ -23,24 +21,14 @@ class AVL(object):
             croot = self.find(key)
             if croot.key == key:
                 return croot
-            elif croot.key != key:
-                New_Node = TreeNode(key, value)
-                New_Node.parent = croot
-                if key < croot.key : #左側插入新結點 
-                    croot.left = New_Node
-                    if not self.is_balanced(croot):#imbalance
-                        if key < croot.left.key : #LL-imbalance
-                            croot = self.right_rotation(croot)#right-rotation
-                        else:#LR-imbalance
-                            ##
-                elif key > croot.key :#右側插入新結點 
-                    croot.right = New_Node
-                    if not self.is_balanced(croot):#imbalance
-                        if key < croot.right.key :#LR-imbalance
-                            ## 
-                        else:#RR-imbalance
-                            croot = self.left_rotation(croot)#left-rotation
-            return croot
+            New_Node = TreeNode(key, value)
+            New_Node.parent = croot    
+            if key < croot.key : #左側插入新結點
+                croot.left = New_Node
+            else:#右側插入新結點
+                croot.right = New_Node
+            self.rebalance(croot)
+            
         # insert and rebalance
     
     def left_rotation(self, croot):
@@ -49,9 +37,12 @@ class AVL(object):
         croot = croot.right
         move_node = croot.left
         croot_left.right = move_node
+        # croot_left.right = croot.left
         croot.left = croot_left
         croot_left.parent = croot
-        move_node.parent = croot_left
+        if move_node is not None:
+            move_node.parent = croot_left 
+        return croot
 
     def right_rotation(self, croot):
         croot_right = croot
@@ -65,12 +56,62 @@ class AVL(object):
 
     def rebalance(self, croot):
         # TODO: take care of 4 cases of rotation operations
+        if self.is_balanced(croot) is True:
+            return croot
+        else:
+            if croot.key < croot.parent.key:
+                self.right_rotation(croot.parent) #右旋
+                if self.is_balanced(croot) is True:
+                    return  #LL-imbalance
+                else:
+                    self.left_rotation(croot.parent)#左旋
+                    return #RL-imbalance
+            elif croot.key > croot.parent.key:
+                self.left_rotation(croot.parent) #左旋
+                if self.is_balanced(croot) is True:
+                    return  #RR-imbalance
+                else:
+                    self.right_rotation(croot.parent)#右旋
+                    return  #LR-imbalance
 
-    # def is_balanced(self, croot):
+    def is_balanced(self, croot):
+        return self.recur_is_balanced(croot)
     # TODO: abs(h_left-h_right) <= 1 
 
-    # def recur_is_balanced(self, croot):
-    
+    def recur_is_balanced(self, croot):
+        if croot.parent is None:
+            return True
+        else:
+            croot = croot.parent
+            if croot.left == None:
+                h_left = 0
+            else:
+                h_left=self.recur_height(croot.left)
+            if croot.right == None:
+                h_right = 0
+            else:
+                h_right=self.recur_height(croot.right)
+            if abs(h_left-h_right) <= 1:
+                return True
+            else:
+                return False
+
+
+
+# l = [5,10,15]
+# length = len(l)
+# while len(l) > 0:
+#     key = l.pop(0)
+#     value = chr(key)
+#     print(self.in_order())
+#     self.insert(key, value)
+#     print(self.in_order())
+#     # print(tree.is_balanced())
+# print(self.in_order())
+# print(self.level_order())
+
+
+
 
     def find(self, key):
         return self.recur_find(self.root, key)
@@ -191,7 +232,8 @@ class AVL(object):
         if croot ==None:
             return 0
         else:
-            return max(self.recur_height(croot.left),self.recur_height(croot.right))
+            return 1+max(self.recur_height(croot.left),self.recur_height(croot.right))
     
    
    
+# %%
