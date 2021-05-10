@@ -7,12 +7,14 @@ class TreeNode(object):
         self.parent = parent
         self.left = None
         self.right = None 
+        
     # def __del__(self):
     #     print(f'TreeNode with data {self.key} is destroyed')
 
 class AVL(object):
     def __init__(self):
         self.root = None
+        self.count = []
     
     def insert(self, key, value):
         if self.root is None:
@@ -32,86 +34,107 @@ class AVL(object):
         # insert and rebalance
     
     def left_rotation(self, croot):
-        # TODO: remeber to update parent and take care of root case
-        croot_left = croot
-        croot = croot.right
-        move_node = croot.left
-        croot_left.right = move_node
-        # croot_left.right = croot.left
-        croot.left = croot_left
-        croot_left.parent = croot
-        if move_node is not None:
-            move_node.parent = croot_left 
-        return croot
-
+        # TODO: remeber to update parent and take care of root case            
+        new_croot = croot.right
+        croot.right =new_croot.left
+        if new_croot.left is not None:
+            new_croot.left.parent = croot
+        new_croot.parent = croot.parent
+        if croot.parent ==None:
+            self.root = new_croot
+        elif croot == croot.parent.left:
+            croot.parent.left = new_croot
+        else:
+            croot.parent.right = new_croot
+        new_croot.left = croot
+        croot.parent = new_croot
+            
     def right_rotation(self, croot):
-        croot_right = croot
-        croot = croot.left
-        move_node = croot.right
-        croot_right.left = move_node
-        croot.right = croot_right
-        croot_right.parent = croot
-        move_node.parent = croot_right
+        new_croot = croot.left
+        croot.left =new_croot.right
+        if new_croot.right is not None:
+            new_croot.right.parent = croot
+        new_croot.parent = croot.parent
+        if croot.parent ==None:
+            self.root = new_croot
+        elif croot == croot.parent.right:
+            croot.parent.right = new_croot
+        else:
+            croot.parent.left = new_croot
+        new_croot.right = croot
+        croot.parent = new_croot
     # TODO: remeber to update parent and take care of root case
 
     def rebalance(self, croot):
         # TODO: take care of 4 cases of rotation operations
         if self.is_balanced(croot) is True:
+            self.count.append('O')
             return croot
         else:
             if croot.key < croot.parent.key:
                 self.right_rotation(croot.parent) #右旋
+                self.count.append('R')
                 if self.is_balanced(croot) is True:
                     return  #LL-imbalance
                 else:
                     self.left_rotation(croot.parent)#左旋
+                    self.count.append('L')
                     return #RL-imbalance
             elif croot.key > croot.parent.key:
                 self.left_rotation(croot.parent) #左旋
+                self.count.append('l')
                 if self.is_balanced(croot) is True:
                     return  #RR-imbalance
                 else:
                     self.right_rotation(croot.parent)#右旋
+                    self.count.append("r")
                     return  #LR-imbalance
 
     def is_balanced(self, croot):
-        return self.recur_is_balanced(croot)
-    # TODO: abs(h_left-h_right) <= 1 
-
-    def recur_is_balanced(self, croot):
         if croot.parent is None:
             return True
         else:
             croot = croot.parent
-            if croot.left == None:
-                h_left = 0
+            return self.recur_is_balanced(croot)
+    # TODO: abs(h_left-h_right) <= 1 
+
+    def recur_is_balanced(self, croot):
+        if croot.left == None:
+            h_left = 0
+        else:
+            h_left=self.recur_height(croot.left)
+        if croot.right == None:
+            h_right = 0
+        else:
+            h_right=self.recur_height(croot.right)
+        if abs(h_left-h_right) <= 1:
+            if self.root.key != croot.key : 
+                self.is_balanced(croot)#繼續往croot.parent判斷是否平衡
             else:
-                h_left=self.recur_height(croot.left)
-            if croot.right == None:
-                h_right = 0
-            else:
-                h_right=self.recur_height(croot.right)
-            if abs(h_left-h_right) <= 1:
-                return True
-            else:
-                return False
+                return True #已找到root_node且整棵樹為平衡
+        else:
+            return croot#不平衡輸出當下croot
 
-
-
-# l = [5,10,15]
-# length = len(l)
-# while len(l) > 0:
-#     key = l.pop(0)
-#     value = chr(key)
-#     print(self.in_order())
-#     self.insert(key, value)
-#     print(self.in_order())
-#     # print(tree.is_balanced())
-# print(self.in_order())
-# print(self.level_order())
-
-
-
+    # def is_balanced(self, croot):
+    #     return self.recur_is_balanced(croot)
+    # # TODO: abs(h_left-h_right) <= 1 
+    # def recur_is_balanced(self, croot):
+    #     if croot.parent is None:
+    #         return True
+    #     else:
+    #         croot = croot.parent
+    #         if croot.left == None:
+    #             h_left = 0
+    #         else:
+    #             h_left=self.recur_height(croot.left)
+    #         if croot.right == None:
+    #             h_right = 0
+    #         else:
+    #             h_right=self.recur_height(croot.right)
+    #         if abs(h_left-h_right) <= 1:
+    #             return True
+    #         else:
+    #             return False
 
     def find(self, key):
         return self.recur_find(self.root, key)
