@@ -37,11 +37,13 @@ class AVL(object):
         # TODO: remeber to update parent and take care of root case            
         new_croot = croot.right
         croot.right =new_croot.left
+        # parent_nodes=croot.parent
         if new_croot.left is not None:
             new_croot.left.parent = croot
         new_croot.parent = croot.parent
         if croot.parent ==None:
             self.root = new_croot
+            new_croot.parent = None
         elif croot == croot.parent.left:
             croot.parent.left = new_croot
         else:
@@ -71,24 +73,29 @@ class AVL(object):
             self.count.append('O')
             return croot
         else:
-            if croot.key < croot.parent.key:
-                self.right_rotation(croot.parent) #右旋
-                self.count.append('R')
-                if self.is_balanced(croot) is True:
-                    return  #LL-imbalance
-                else:
-                    self.left_rotation(croot.parent)#左旋
-                    self.count.append('L')
-                    return #RL-imbalance
-            elif croot.key > croot.parent.key:
-                self.left_rotation(croot.parent) #左旋
-                self.count.append('l')
-                if self.is_balanced(croot) is True:
-                    return  #RR-imbalance
-                else:
-                    self.right_rotation(croot.parent)#右旋
-                    self.count.append("r")
-                    return  #LR-imbalance
+            self.count.append(croot.key)
+            croot = self.recur_is_balanced(croot)
+            if isinstance(croot, TreeNode):
+                self.count.append(croot.key)
+                # if croot.key < croot.parent.key:
+                if self.recur_height(croot.left)>self.recur_height(croot.right):
+                    if self.recur_height(croot.left.left)>self.recur_height(croot.left.right):#LL-imbalance
+                        self.right_rotation(croot) #右旋
+                        self.count.append('LL')
+                    else :#LR-imbalance
+                        self.left_rotation(croot.right)#先左旋
+                        self.right_rotation(croot)#再右旋
+                        self.count.append('LR')
+                
+                # elif croot.key > croot.parent.key:
+                elif self.recur_height(croot.left)<self.recur_height(croot.right):
+                    if self.recur_height(croot.right.left)<self.recur_height(croot.right.right):#RR-imbalance
+                        self.left_rotation(croot) #左旋
+                        self.count.append('RR')
+                    else:#RL-imbalance
+                        self.right_rotation(croot.left)#先右旋
+                        self.left_rotation(croot)#再左旋
+                        self.count.append('RL')
 
     def is_balanced(self, croot):
         if croot.parent is None:
@@ -109,32 +116,22 @@ class AVL(object):
             h_right=self.recur_height(croot.right)
         if abs(h_left-h_right) <= 1:
             if self.root.key != croot.key : 
-                self.is_balanced(croot)#繼續往croot.parent判斷是否平衡
+                self.is_balanced(croot.parent)#繼續往croot.parent判斷是否平衡
             else:
                 return True #已找到root_node且整棵樹為平衡
         else:
-            return croot#不平衡輸出當下croot
+            if abs(h_left)>abs(h_right):
+                self.count.append("A")
+                return croot#左邊不平衡輸出當下croot.left
+            elif abs(h_left)<abs(h_right):
+                self.count.append("B")
+                # self.count.append(croot.key)
+                # self.count.append(croot.right.key)
+                # self.count.append(croot.right.right.key)
+                return croot#右邊不平衡輸出當下croot.right
 
-    # def is_balanced(self, croot):
-    #     return self.recur_is_balanced(croot)
-    # # TODO: abs(h_left-h_right) <= 1 
-    # def recur_is_balanced(self, croot):
-    #     if croot.parent is None:
-    #         return True
-    #     else:
-    #         croot = croot.parent
-    #         if croot.left == None:
-    #             h_left = 0
-    #         else:
-    #             h_left=self.recur_height(croot.left)
-    #         if croot.right == None:
-    #             h_right = 0
-    #         else:
-    #             h_right=self.recur_height(croot.right)
-    #         if abs(h_left-h_right) <= 1:
-    #             return True
-    #         else:
-    #             return False
+            # return croot#不平衡輸出當下croot
+
 
     def find(self, key):
         return self.recur_find(self.root, key)
