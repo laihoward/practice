@@ -42,7 +42,6 @@ def test_in_order():
         tree.insert(i, i)
         elem.append(i)
     res = tree.in_order()
-    # print(tree.in_order())
     assert res == elem
 
 def test_in_order2():
@@ -53,7 +52,6 @@ def test_in_order2():
         tree.insert(i, i)
         elem.append(i)
     res = tree.pre_order()
-    
     assert res == elem
 
 def test_in_order_pre_order_level_order():
@@ -157,21 +155,52 @@ def test_remove2():
             key = l.pop(0)
             value = chr(key)
             tree.insert(key, value)
-    print(tree.in_order())
-    print(tree.level_order())        
     tree.remove(100)
-    print(tree.in_order())
-    print(tree.level_order())
     tree.remove(50)
-    print(tree.in_order())
-    print(tree.level_order())
     tree.remove(14)
-    print(tree.in_order())
-    print(tree.level_order())
     tree.remove(39)
-    print(tree.in_order())
-    print(tree.level_order())
     assert len(tree.in_order()) == length
+
+
+def test_remove3():
+    tree = Tree()
+    s = 100
+    for i in range(0, s):
+        tree.insert(i, i)
+    
+    for i in range(0, s):
+        tree.remove(i)
+
+def test_remove4():
+    tree = Tree()
+    s = 100
+    for i in reversed(range(0, s)):
+        tree.insert(i, i)
+    
+    for i in reversed(range(0, s)):
+        tree.remove(i)
+
+import random
+def test_remove5():
+    
+    tree = Tree()
+    l = list()
+    s = 100
+    for i in range(0, s):
+        tree.insert(i, i)
+
+    for i in range(0, s):
+        l.append(i)
+    random.shuffle(l)
+    
+    size = 100
+    while len(l) > 1:
+        key = l.pop()
+        tree.remove(key)
+        size -= 1
+        assert len(tree.in_order()) == size
+        croot = tree.find(key)
+        assert croot.key != key
 
 
 def test_mirror():
