@@ -1,5 +1,5 @@
 import os
-import geometry.linkedlist as l
+import component.linkedlist as l
 
 class StackByLinkedlist():
     def __init__(self):

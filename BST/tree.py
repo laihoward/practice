@@ -16,8 +16,6 @@ class Tree(object):
         else:
             self.recur_insert(self.root, key, value)
         return self.root
-        
-        
     
     def recur_insert(self, croot, key, value):
         if croot is None:
@@ -37,7 +35,6 @@ class Tree(object):
         else:    
             return self.recur_find(self.root, key) 
     # TODO: return a tree node
-
     def recur_find(self, croot, key):
         if croot.key == key:
             return croot
@@ -47,8 +44,6 @@ class Tree(object):
             return self.recur_find(croot.right,key)
         # TODO: recursive helper function for find operation
     
-
-
     def find_parent_croot(self, key):
         parent = self.root
         croot = self.root
@@ -68,7 +63,6 @@ class Tree(object):
         # elif croot.left == None and croot.right == None:
         #     return 
                 # TODO: helper function for finding nodes.
-
 
     def remove(self, key):
         if  self.root is None:
@@ -115,7 +109,6 @@ class Tree(object):
             else :
                 parent.right = None
 
-    
     def right_most_child(self, parent, croot):
         if croot.right != None:
             return  self.right_most_child(croot,croot.right)
@@ -146,7 +139,6 @@ class Tree(object):
         return res
         # TODO: Store the pre-order traversal to list
 
-    
     def in_order(self):
         res = list()
         return self.recur_in_order(self.root, res)
@@ -161,7 +153,6 @@ class Tree(object):
         return res
         # TODO: Store the in-order traversal to list
 
-    
     def level_order(self):
         queue = [self.root]
         res = list()
@@ -178,9 +169,6 @@ class Tree(object):
         # TODO: Store the level-order traversal to list
         # Hint: you need to use queue.
     
-
-
-    
     def height(self):
         if self.root != None:
             return self.recur_height(self.root,-1)
@@ -193,10 +181,7 @@ class Tree(object):
         left_hight = self.recur_height(croot.left,chight+1)
         right_hight = self.recur_height(croot.right,chight+1)
         return max(left_hight,right_hight)
-
-
-
-        
+    
     def mirror(self):
         if self.root is None: 
             return
@@ -220,7 +205,6 @@ class Tree(object):
         #    3     2
         #  7  6   9  8
         
-    
     def print_paths(self):
         if self.root is None: 
             return
